@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kube-demo
+  template:
+    metadata:
+      labels:
+        app: kube-demo
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: kube-demo
+        image: linuxmanju/kube-demo
+        imagePullPolicy: "Always"
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+          name: kube-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-demo-service
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: kube-demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: kube-demo
