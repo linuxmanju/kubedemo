@@ -1,4 +1,8 @@
 # Starter pipeline
+trigger:
+  - main
+  
+steps:
 - task: SSH@0
   inputs:
     sshEndpoint: 'DL-Dev'
