@@ -1,6 +1,7 @@
 # Starter pipeline
-trigger:
-  - main
+pool:
+ name: VMBAse
+ vmImage: ubuntu-latest
   
 steps:
 - task: SSH@0
