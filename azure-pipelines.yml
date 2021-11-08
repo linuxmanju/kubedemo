@@ -1,6 +1,5 @@
 # Starter pipeline
 pool:
- name: VMBAse
  vmImage: ubuntu-latest
   
 steps:
